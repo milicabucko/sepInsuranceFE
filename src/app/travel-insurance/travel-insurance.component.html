@@ -3,41 +3,161 @@
 <mat-horizontal-stepper [linear]="isLinear">
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Fill out insurance</ng-template>
+
+      Duration of insurance <br>
+
       <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <input matInput [matDatepicker]="startPicker" placeholder="Choose start date"  formControlName="startPickerCtrl" required>
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="begOfInsurance" placeholder="First date of insurance" formControlName="begOfInsuranceCtrl">
-        <mat-datepicker-toggle matSuffix [for]="begOfInsurance"></mat-datepicker-toggle>
-        <mat-datepicker #begOfInsurance></mat-datepicker>
+        <input matInput [matDatepicker]="endPicker" placeholder="Choose end date" formControlName="endPickerCtrl" required>
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
+
+      <br>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="endOfInsurance" placeholder="Last date of insurance" formControlName="endOfInsuranceCtrl">
-        <mat-datepicker-toggle matSuffix [for]="endOfInsurance"></mat-datepicker-toggle>
-        <mat-datepicker #endOfInsurance></mat-datepicker>
+        <mat-select placeholder="Travel region">
+          <mat-option *ngFor="let region of regions" [value]="region.name">
+            {{ region.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
+      <br>
+      <mat-form-field>
+        <input matInput type="number" [(ngModel)]="numberOfPersons" [ngModelOptions]="{standalone: true}" (ngModelChange)="setUserFormsArray(numberOfPerson)" placeholder="Number of persons" required>
+      </mat-form-field>
+      <br>
 
-        <mat-radio-group formControlName="ageGroupCtrl">
-          <mat-radio-button value="1">< 18</mat-radio-button>
-          <mat-radio-button value="2">18 - 60</mat-radio-button>
-          <mat-radio-button value="3">> 60</mat-radio-button>
-        </mat-radio-group>
+
+      <mat-form-field>
+        <mat-select placeholder="Ages of persons">
+          <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup.name">
+            {{ ageGroup.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+        <mat-select placeholder="Sport">
+          <mat-option *ngFor="let sport of sports" [value]="sport.name">
+            {{ sport.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+        <mat-select placeholder="Insurance amount">
+          <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount.name">
+            {{ insuranceAmount.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
 
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
+
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
+
+      <ng-template matStepLabel>Fill out user details</ng-template>
+
+      <mat-form-field>
+        <input matInput placeholder="First name" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Last name" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput type="number" maxlength="5" placeholder="Personal ID" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Passport number" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <br>
       <mat-form-field>
         <input matInput placeholder="Address" formControlName="secondCtrl" required>
       </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Phone number" formControlName="secondCtrl" required>
+      </mat-form-field>
+
+
+
+      <button mat-raised-button (click)="addNewInsuredPerson()"> Add </button>
+
+
+      <div class="example-container mat-elevation-z8">
+        <div class="example-header">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+
+        <mat-table #table [dataSource]="dataSource">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef> First name </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.firstName }} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef> Last name </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.lastName }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="personalID">
+            <mat-header-cell *matHeaderCellDef> Personal ID </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.personalID }} </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="passportNumber">
+            <mat-header-cell *matHeaderCellDef> Passport number </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.passportNumber }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.address }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <mat-header-cell *matHeaderCellDef> Phone number </mat-header-cell>
+            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.phoneNumber }} </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+
+
+
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -45,8 +165,12 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
+
+    <ng-template matStepLabel>Payment</ng-template>
+    Choose method of payment!
+
+    1. Paypall
+    <img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1425493926/uazitd0cpj8dafeobjii.jpg">
     <div>
       <button mat-button matStepperPrevious>Back</button>
     </div>
