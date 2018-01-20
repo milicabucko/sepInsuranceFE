@@ -1,3 +1,4 @@
+///<reference path="../../node_modules/@angular/router/src/config.d.ts"/>
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -10,6 +11,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { DataService } from './data.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -44,16 +46,29 @@ import {
   MatStepperModule
 } from '@angular/material';
 import { TravelInsuranceComponent } from './travel-insurance/travel-insurance.component';
+import { InternalClientComponent } from './internal-client/internal-client.component';
 
+
+
+const appRoutes: Routes = [
+  { path: 'crisis-center', component: TravelInsuranceComponent },
+  { path: 'heroes',      component: UserDetailsComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     UserDetailsComponent,
-    TravelInsuranceComponent
+    TravelInsuranceComponent,
+    InternalClientComponent,
+    InternalClientComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -89,9 +104,11 @@ import { TravelInsuranceComponent } from './travel-insurance/travel-insurance.co
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule
+    MatStepperModule,
+    RouterModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

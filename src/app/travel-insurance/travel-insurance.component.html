@@ -22,7 +22,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Travel region">
+        <mat-select placeholder="Travel region" formControlName="travelRegionCtrl" required>
           <mat-option *ngFor="let region of regions" [value]="region.name">
             {{ region.name }}
           </mat-option>
@@ -31,13 +31,13 @@
 
       <br>
       <mat-form-field>
-        <input matInput type="number" [(ngModel)]="numberOfPersons" [ngModelOptions]="{standalone: true}" (ngModelChange)="setUserFormsArray(numberOfPerson)" placeholder="Number of persons" required>
+        <input matInput type="number" placeholder="Number of persons" formControlName="numberCtrl" required>
       </mat-form-field>
       <br>
 
 
       <mat-form-field>
-        <mat-select placeholder="Ages of persons">
+        <mat-select placeholder="Ages of persons" formControlName="agesCtrl" required>
           <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup.name">
             {{ ageGroup.name }}
           </mat-option>
@@ -47,7 +47,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Sport">
+        <mat-select placeholder="Sport" formControlName="sportCtrl" required>
           <mat-option *ngFor="let sport of sports" [value]="sport.name">
             {{ sport.name }}
           </mat-option>
@@ -57,7 +57,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Insurance amount">
+        <mat-select placeholder="Insurance amount" >
           <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount.name">
             {{ insuranceAmount.name }}
           </mat-option>
@@ -106,57 +106,73 @@
 
       <button mat-raised-button (click)="addNewInsuredPerson()"> Add </button>
 
-
-      <div class="example-container mat-elevation-z8">
-        <div class="example-header">
-          <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-          </mat-form-field>
-        </div>
-
-        <mat-table #table [dataSource]="dataSource">
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="firstName">
-            <mat-header-cell *matHeaderCellDef> First name </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.firstName }} </mat-cell>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef> Last name </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.lastName }} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="personalID">
-            <mat-header-cell *matHeaderCellDef> Personal ID </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.personalID }} </mat-cell>
-          </ng-container>
-
-
-          <ng-container matColumnDef="passportNumber">
-            <mat-header-cell *matHeaderCellDef> Passport number </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.passportNumber }} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="address">
-            <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.address }} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="phoneNumber">
-            <mat-header-cell *matHeaderCellDef> Phone number </mat-header-cell>
-            <mat-cell *matCellDef="let insuredPerson"> {{ insuredPerson.phoneNumber }} </mat-cell>
-          </ng-container>
-
-
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
       </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="objectFormGroup">
+    <form [formGroup]="objectFormGroup">
+      <ng-template matStepLabel>Fill for object</ng-template>
+
+      <br>
+
+      <mat-form-field>
+        <mat-select placeholder="Flat area" formControlName="areaCtrl" required>
+          <mat-option *ngFor="let area of areas" [value]="area.value">
+            {{ area.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field>
+        <mat-select placeholder="Age of object" formControlName="objectAgeCtrl" required>
+          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.value">
+            {{ objectAge.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Estimated value of the apartment" required>
+      </mat-form-field>
+      <br>
 
 
 
+      <mat-form-field>
+        <mat-select placeholder="Which is ensured">
+          <mat-option *ngFor="let insurence of insurences" [value]="insurence.value">
+            {{ insurence.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="carFormGroup">
+    <form [formGroup]="carFormGroup">
+      <ng-template matStepLabel>Fill for car</ng-template>
+
+      <br>
+      Package to be purchased:
+      <mat-form-field>
+        <mat-select placeholder="Choose the package" formControlName="packageCtrl" required>
+          <mat-option *ngFor="let package of packages" [value]="package.value">
+            {{ package.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div>
         <button mat-button matStepperPrevious>Back</button>
