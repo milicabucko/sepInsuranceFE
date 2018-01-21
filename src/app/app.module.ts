@@ -51,8 +51,9 @@ import { InternalClientComponent } from './internal-client/internal-client.compo
 
 
 const appRoutes: Routes = [
-  { path: 'crisis-center', component: TravelInsuranceComponent },
-  { path: 'heroes',      component: UserDetailsComponent }
+  { path: 'profile', component: InternalClientComponent, pathMatch: 'full'},
+  { path: 'heroes',      component: UserDetailsComponent, pathMatch: 'full'},
+  { path: 'web-shop', component: TravelInsuranceComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

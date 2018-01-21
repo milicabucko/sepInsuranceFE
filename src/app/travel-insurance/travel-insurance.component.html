@@ -1,5 +1,3 @@
-<button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button>
-
 <mat-horizontal-stepper [linear]="isLinear">
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
@@ -22,7 +20,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Travel region" formControlName="travelRegionCtrl" required>
+        <mat-select placeholder="Travel region" [(ngModel)]="region" class="form-control col-lg-8" #corporation formControlName="travelRegionCtrl" required>
           <mat-option *ngFor="let region of regions" [value]="region.name">
             {{ region.name }}
           </mat-option>
@@ -57,7 +55,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Insurance amount" >
+        <mat-select placeholder="Insurance amount" formControlName="sportCtrl" required>
           <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount.name">
             {{ insuranceAmount.name }}
           </mat-option>
@@ -72,6 +70,54 @@
       </div>
     </form>
   </mat-step>
+
+  <mat-step [stepControl]="preBillFormGroup">
+    <form [formGroup]="preBillFormGroup">
+      <ng-template matStepLabel>What you choose!</ng-template>
+
+
+
+      <br><div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Insurance item </mat-header-cell>
+          <mat-cell *matCellDef="let region"> {{ region.name }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let region"> {{ region.price }} </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+
+      <!-- Copyright 2018 Google Inc. All Rights Reserved.
+          Use of this source code is governed by an MIT-style license that
+          can be found in the LICENSE file at http://angular.io/license -->
+      <mat-form-field>
+        <input matInput type="number" placeholder="Number of persons" formControlName="preBillCtrl" required>
+      </mat-form-field>
+      <br>
+      <br>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
 
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
@@ -102,10 +148,6 @@
         <input matInput placeholder="Phone number" formControlName="secondCtrl" required>
       </mat-form-field>
 
-
-
-      <button mat-raised-button (click)="addNewInsuredPerson()"> Add </button>
-
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -121,8 +163,8 @@
 
       <mat-form-field>
         <mat-select placeholder="Flat area" formControlName="areaCtrl" required>
-          <mat-option *ngFor="let area of areas" [value]="area.value">
-            {{ area.viewValue }}
+          <mat-option *ngFor="let area of areas" [value]="area.name">
+            {{ area.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -130,31 +172,31 @@
       <br>
       <mat-form-field>
         <mat-select placeholder="Age of object" formControlName="objectAgeCtrl" required>
-          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.value">
-            {{ objectAge.viewValue }}
+          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.name">
+            {{ objectAge.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Estimated value of the apartment" required>
-      </mat-form-field>
-      <br>
-
-
-
-      <mat-form-field>
-        <mat-select placeholder="Which is ensured">
-          <mat-option *ngFor="let insurence of insurences" [value]="insurence.value">
-            {{ insurence.viewValue }}
+        <mat-select placeholder="Estimated value of the apartment" formControlName="objectAgeCtrl" required>
+          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.name">
+            {{ objectAge.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <br>
 
-
-
+      <mat-form-field>
+        <mat-select placeholder="Which is ensured" formControlName="insuranceCtrl" required>
+          <mat-option *ngFor="let insurance of insurances" [value]="insurance.name">
+            {{ insurance.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div>
+        <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
@@ -168,8 +210,8 @@
       Package to be purchased:
       <mat-form-field>
         <mat-select placeholder="Choose the package" formControlName="packageCtrl" required>
-          <mat-option *ngFor="let package of packages" [value]="package.value">
-            {{ package.viewValue }}
+          <mat-option *ngFor="let package of packages" [value]="package.name">
+            {{ package.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

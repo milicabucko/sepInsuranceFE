@@ -5,14 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   template: `
-    <button mat-button routerLink="/crisis-center" routerLinkActive="active">About</button>
-    <button mat-button>Menu</button>
-    <button mat-button>Web Shop</button>
-    <button mat-button>Logout</button>
-    <nav>
-      <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
-      <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-    </nav>
+    <button mat-button routerLink="/profile" routerLinkActive="active">About</button>
+    <button mat-button routerLink="/heroes" routerLinkActive="active">Menu</button>
+    <button mat-button routerLink="/web-shop" routerLinkActive="active">Web Shop</button>
+    <button mat-button routerLink="/profile" routerLinkActive="active">Logout</button>
     <router-outlet></router-outlet>
   `
 })
@@ -22,6 +18,4 @@ export class AppComponent {
 /*
   title = 'app';
 */
-
-
 }
