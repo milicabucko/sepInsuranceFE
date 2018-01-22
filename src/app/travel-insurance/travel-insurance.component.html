@@ -20,8 +20,8 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Travel region" [(ngModel)]="region" class="form-control col-lg-8" #corporation formControlName="travelRegionCtrl" required>
-          <mat-option *ngFor="let region of regions" [value]="region.name">
+        <mat-select placeholder="Travel region" [(ngModel)]="selectedRegionValue" (change)="chooseValue(selectedRegionValue)"  formControlName="travelRegionCtrl" required>
+          <mat-option *ngFor="let region of regions" [value]="region">
             {{ region.name }}
           </mat-option>
         </mat-select>
@@ -35,8 +35,8 @@
 
 
       <mat-form-field>
-        <mat-select placeholder="Ages of persons" formControlName="agesCtrl" required>
-          <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup.name">
+        <mat-select placeholder="Ages of persons" [(ngModel)]="selectedAgeGroupValue" (change)="chooseValue(selectedAgeGroupValue)" formControlName="agesCtrl" required>
+          <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
             {{ ageGroup.name }}
           </mat-option>
         </mat-select>
@@ -45,8 +45,8 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Sport" formControlName="sportCtrl" required>
-          <mat-option *ngFor="let sport of sports" [value]="sport.name">
+        <mat-select placeholder="Sport" [(ngModel)]="selectedSportValue" (change)="chooseValue(selectedSportValue)" formControlName="sportCtrl" required>
+          <mat-option *ngFor="let sport of sports" [value]="sport">
             {{ sport.name }}
           </mat-option>
         </mat-select>
@@ -55,8 +55,8 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Insurance amount" formControlName="sportCtrl" required>
-          <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount.name">
+        <mat-select placeholder="Insurance amount" [(ngModel)]="selectedInsuranceAmountValue" (change)="chooseValue(selectedInsuranceAmountValue)" formControlName="sportCtrl" required>
+          <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount">
             {{ insuranceAmount.name }}
           </mat-option>
         </mat-select>
@@ -82,6 +82,10 @@
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
+        <ng-container matColumnDef="category">
+          <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+          <mat-cell *matCellDef="let region"> {{ region.category }} </mat-cell>
+        </ng-container>
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
@@ -163,7 +167,7 @@
 
       <mat-form-field>
         <mat-select placeholder="Flat area" formControlName="areaCtrl" required>
-          <mat-option *ngFor="let area of areas" [value]="area.name">
+          <mat-option *ngFor="let area of areas" [value]="area">
             {{ area.name }}
           </mat-option>
         </mat-select>
@@ -172,7 +176,7 @@
       <br>
       <mat-form-field>
         <mat-select placeholder="Age of object" formControlName="objectAgeCtrl" required>
-          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.name">
+          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge">
             {{ objectAge.name }}
           </mat-option>
         </mat-select>
@@ -180,7 +184,7 @@
       <br>
       <mat-form-field>
         <mat-select placeholder="Estimated value of the apartment" formControlName="objectAgeCtrl" required>
-          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge.name">
+          <mat-option *ngFor="let objectAge of objectAges" [value]="objectAge">
             {{ objectAge.name }}
           </mat-option>
         </mat-select>
@@ -189,7 +193,7 @@
 
       <mat-form-field>
         <mat-select placeholder="Which is ensured" formControlName="insuranceCtrl" required>
-          <mat-option *ngFor="let insurance of insurances" [value]="insurance.name">
+          <mat-option *ngFor="let insurance of insurances" [value]="insurance">
             {{ insurance.name }}
           </mat-option>
         </mat-select>
@@ -210,7 +214,7 @@
       Package to be purchased:
       <mat-form-field>
         <mat-select placeholder="Choose the package" formControlName="packageCtrl" required>
-          <mat-option *ngFor="let package of packages" [value]="package.name">
+          <mat-option *ngFor="let package of packages" [value]="package">
             {{ package.name }}
           </mat-option>
         </mat-select>

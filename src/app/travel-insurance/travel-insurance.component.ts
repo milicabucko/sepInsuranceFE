@@ -12,26 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TravelInsuranceComponent implements OnInit {
 
-  /*isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-
-  constructor(private _formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-      begOfInsuranceCtrl : ['', Validators.required],
-      endOfInsuranceCtrl : ['', Validators.required],
-      ageGroupCtrl : ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-  }*/
-
-  displayedColumns = ['name', 'price'];
-
+  displayedColumns = ['category', 'name', 'price'];
 
   isLinear = false;
   firstFormGroup: FormGroup;
@@ -39,8 +20,7 @@ export class TravelInsuranceComponent implements OnInit {
   objectFormGroup: FormGroup;
   carFormGroup: FormGroup;
   preBillFormGroup: FormGroup;
-
-
+  elementData: GroupItemPrice[];
 
   constructor(private _formBuilder: FormBuilder, private dataService: DataService) { }
 
@@ -52,13 +32,14 @@ export class TravelInsuranceComponent implements OnInit {
   areas: ContractItem[];
   insurances: ContractItem[];
   packages: ContractItem[];
-  region: String;
 
 
-
+  selectedRegionValue: ContractItem;
+  selectedAgeGroupValue: ContractItem;
+  selectedSportValue: ContractItem;
+  selectedInsuranceAmountValue: ContractItem;
 
   dataSource = new MatTableDataSource<GroupItemPrice>(ELEMENT_DATA);
-
 
   insPerson: InsuredPerson;
   groupItemPrice: GroupItemPrice;
@@ -93,11 +74,6 @@ export class TravelInsuranceComponent implements OnInit {
     });
 
 
-
-
-
-
-
     this.dataService.findAllContractItems('region').then(regions => this.regions = regions);
     this.dataService.findAllContractItems('sport').then(sports => this.sports = sports);
     this.dataService.findAllContractItems('ageGroup').then(ageGroups => this.ageGroups = ageGroups);
@@ -110,9 +86,25 @@ export class TravelInsuranceComponent implements OnInit {
     this.dataService.findAllContractItems('package').then(packages => this.packages = packages);
   }
 
+chooseValue(selectedValue){
 
-
+  ELEMENT_DATA[0].name = this.selectedRegionValue.name;
+  ELEMENT_DATA[0].category = this.selectedRegionValue.itemGroup;
+  ELEMENT_DATA[1].name = this.selectedAgeGroupValue.name;
+  ELEMENT_DATA[1].category = this.selectedAgeGroupValue.itemGroup;
+  ELEMENT_DATA[2].name = this.selectedSportValue.name;
+  ELEMENT_DATA[2].category = this.selectedSportValue.itemGroup;
+  ELEMENT_DATA[3].name = this.selectedInsuranceAmountValue.name;
+  ELEMENT_DATA[3].category = this.selectedInsuranceAmountValue.itemGroup;
+  }
 }
+
+const ELEMENT_DATA: GroupItemPrice[] = [
+  {category: '', name: '', price: 1.0079},
+  {category: '', name: '', price: 4.0026},
+  {category: '', name: '', price: 4.0026},
+  {category: '', name: '', price: 4.0026}
+];
 
 
 export interface InsuredPerson {
@@ -124,13 +116,9 @@ export interface InsuredPerson {
   phoneNumber: string;
 }
 
-const ELEMENT_DATA: GroupItemPrice[] = [
-  {name: this.region, price: 1.0079},
-  {name: 'Helium', price: 4.0026}
-];
-
 export interface GroupItemPrice {
-  name: string;
+  category: String;
+  name: String;
   price: number;
 }
 
