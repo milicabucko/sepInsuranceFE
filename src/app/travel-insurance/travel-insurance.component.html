@@ -220,14 +220,37 @@
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field>
+        <input matInput placeholder="Brand of vehicle;" formControlName="thirdCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Type of vehicle;" formControlName="thirdCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput type="number" maxlength="5" placeholder="Year of manufacture" formControlName="thirdCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Number of registry tables" formControlName="thirdCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Chassis number" formControlName="thirdCtrl" required>
+      </mat-form-field>
+      <br>
+      <hr>
+
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step>
 
+  <mat-step>
     <ng-template matStepLabel>Payment</ng-template>
     Choose method of payment!
 
