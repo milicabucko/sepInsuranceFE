@@ -48,13 +48,23 @@ import {
 } from '@angular/material';
 import { TravelInsuranceComponent } from './travel-insurance/travel-insurance.component';
 import { InternalClientComponent } from './internal-client/internal-client.component';
-
+import { HomePageComponent } from './home-page/home-page.component';
+import { HeaderComponent } from './header/header.component';
+import { ImagesSliderComponent } from './images-slider/images-slider.component';
+import { FooterComponent } from './footer/footer.component';
+import { EmptySpaceComponent } from './empty-space/empty-space.component';
+import { PanelComponent } from './panel/panel.component';
 
 
 const appRoutes: Routes = [
-  { path: 'profile', component: InternalClientComponent, pathMatch: 'full'},
-  { path: 'heroes',      component: UserDetailsComponent, pathMatch: 'full'},
-  { path: 'web-shop', component: TravelInsuranceComponent, pathMatch: 'full'}
+  { path: '', redirectTo:'/home', pathMatch:'full'},
+  { path: 'home', component: HomePageComponent},
+  { path: 'profile',component: InternalClientComponent},
+  { path: 'heroes',component: UserDetailsComponent},
+  { path: 'web-shop', component: TravelInsuranceComponent},
+  { path: 'pricelist' , component: UserDetailsComponent},
+  { path: 'insurance/:type', component: TravelInsuranceComponent
+  }
 ];
 
 @NgModule({
@@ -64,7 +74,14 @@ const appRoutes: Routes = [
     UserDetailsComponent,
     TravelInsuranceComponent,
     InternalClientComponent,
-    InternalClientComponent
+    InternalClientComponent,
+    HomePageComponent,
+    HeaderComponent,
+    ImagesSliderComponent,
+    FooterComponent,
+    EmptySpaceComponent,
+    PanelComponent,
+    
   ],
   imports: [
     RouterModule.forRoot(
@@ -107,7 +124,10 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
-    RouterModule
+    RouterModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -1,18 +1,18 @@
 <mat-horizontal-stepper [linear]="isLinear">
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out insurance</ng-template>
+      <ng-template matStepLabel class="steper"> Podaci za polisu</ng-template>
 
-      Duration of insurance <br>
+      Trajanje osiguranja <br>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="startPicker" placeholder="Choose start date"  formControlName="startPickerCtrl" required>
+        <input matInput [matDatepicker]="startPicker" placeholder="Pocetak vazenja osiguranja"  formControlName="startPickerCtrl" required>
         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="endPicker" placeholder="Choose end date" formControlName="endPickerCtrl" required>
+        <input matInput [matDatepicker]="endPicker" placeholder="Kraj vazenja osiguranja" formControlName="endPickerCtrl" required>
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
@@ -20,7 +20,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Travel region" [(ngModel)]="selectedRegionValue" (change)="chooseValue(selectedRegionValue)"  formControlName="travelRegionCtrl" required>
+        <mat-select placeholder="Destinacija" [(ngModel)]="selectedRegionValue" (change)="chooseValue(selectedRegionValue)"  formControlName="travelRegionCtrl" required>
           <mat-option *ngFor="let region of regions" [value]="region">
             {{ region.name }}
           </mat-option>
@@ -29,13 +29,15 @@
 
       <br>
       <mat-form-field>
-        <input matInput type="number" placeholder="Number of persons" formControlName="numberCtrl" required>
+        <input matInput type="number" placeholder="Broj odraslih" formControlName="numberCtrl" required>
       </mat-form-field>
       <br>
 
+      
+
 
       <mat-form-field>
-        <mat-select placeholder="Ages of persons" [(ngModel)]="selectedAgeGroupValue" (change)="chooseValue(selectedAgeGroupValue)" formControlName="agesCtrl" required>
+        <mat-select placeholder="Uzrast lica koje putuje" [(ngModel)]="selectedAgeGroupValue" (change)="chooseValue(selectedAgeGroupValue)" formControlName="agesCtrl" required>
           <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
             {{ ageGroup.name }}
           </mat-option>
@@ -45,7 +47,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Sport" [(ngModel)]="selectedSportValue" (change)="chooseValue(selectedSportValue)" formControlName="sportCtrl" required>
+        <mat-select placeholder="Svrha putovanja" [(ngModel)]="selectedSportValue" (change)="chooseValue(selectedSportValue)" formControlName="sportCtrl" required>
           <mat-option *ngFor="let sport of sports" [value]="sport">
             {{ sport.name }}
           </mat-option>
@@ -55,7 +57,7 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Insurance amount" [(ngModel)]="selectedInsuranceAmountValue" (change)="chooseValue(selectedInsuranceAmountValue)" formControlName="sportCtrl" required>
+        <mat-select placeholder="Osigurana suma" [(ngModel)]="selectedInsuranceAmountValue" (change)="chooseValue(selectedInsuranceAmountValue)" formControlName="sportCtrl" required>
           <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount">
             {{ insuranceAmount.name }}
           </mat-option>
@@ -66,14 +68,14 @@
 
 
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext>Dalje</button>
       </div>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="preBillFormGroup">
     <form [formGroup]="preBillFormGroup">
-      <ng-template matStepLabel>What you choose!</ng-template>
+      <ng-template matStepLabel>Predracun</ng-template>
 
 
 
@@ -116,52 +118,33 @@
       <br>
 
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious>Nazad</button>
+        <button mat-button matStepperNext>Dalje</button>
+
       </div>
     </form>
   </mat-step>
 
 
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="licaFormGroup">
+      <form [formGroup]="licaFormGroup">
+        <ng-template matStepLabel>Podaci o osiguranim licima</ng-template>
+  
+        <br>
+  
+        LICAAAAAAAAAAAA
+  
+        <div>
+            <button mat-button matStepperPrevious>Nazad</button>
+          <button mat-button matStepperNext>Dalje</button>
 
-      <ng-template matStepLabel>Fill out user details</ng-template>
-
-      <mat-form-field>
-        <input matInput placeholder="First name" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <input matInput placeholder="Last name" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <input matInput type="number" maxlength="5" placeholder="Personal ID" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <input matInput placeholder="Passport number" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field>
-        <input matInput placeholder="Phone number" formControlName="secondCtrl" required>
-      </mat-form-field>
-
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
+        </div>
+      </form>
+    </mat-step>
 
   <mat-step [stepControl]="objectFormGroup">
     <form [formGroup]="objectFormGroup">
-      <ng-template matStepLabel>Fill for object</ng-template>
+      <ng-template matStepLabel> Osiguranje kuće/stana</ng-template>
 
       <br>
 
@@ -200,15 +183,16 @@
       </mat-form-field>
 
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious>Nazad</button>
+        <button mat-button matStepperNext>Dalje</button>
+
       </div>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="carFormGroup">
     <form [formGroup]="carFormGroup">
-      <ng-template matStepLabel>Fill for car</ng-template>
+      <ng-template matStepLabel> Osiguranje pomoć na putu</ng-template>
 
       <br>
       Package to be purchased:
@@ -221,43 +205,43 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Brand of vehicle;" formControlName="thirdCtrl" required>
+        <input matInput placeholder="Brand of vehicle;" formControlName="packageCtrl" required>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Type of vehicle;" formControlName="thirdCtrl" required>
+        <input matInput placeholder="Type of vehicle;" formControlName="packageCtrl" required>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput type="number" maxlength="5" placeholder="Year of manufacture" formControlName="thirdCtrl" required>
+        <input matInput type="number" maxlength="5" placeholder="Year of manufacture" formControlName="packageCtrl" required>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Number of registry tables" formControlName="thirdCtrl" required>
+        <input matInput placeholder="Number of registry tables" formControlName="packageCtrl" required>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Chassis number" formControlName="thirdCtrl" required>
+        <input matInput placeholder="Chassis number" formControlName="packageCtrl" required>
       </mat-form-field>
       <br>
       <hr>
 
 
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious>Nazad</button>
+        <button mat-button matStepperNext>Dalje</button>
       </div>
     </form>
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Payment</ng-template>
-    Choose method of payment!
+    <ng-template matStepLabel>Obracun</ng-template>
+    Izaberi nacin placanja!
 
     1. Paypall
     <img src="https://crunchbase-production-res.cloudinary.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1425493926/uazitd0cpj8dafeobjii.jpg">
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperPrevious>Nazad</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

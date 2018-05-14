@@ -1,0 +1,13 @@
+matStepLabel{
+    color:red;
+    background-color: chartreuse;
+}
+
+.mat-step-header .mat-step-icon {
+    background-color: red;
+    color: rgba(255,255,255,.87);
+}
+
+.steper{
+    background-color: red;
+}

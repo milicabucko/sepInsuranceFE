@@ -20,6 +20,7 @@ export class TravelInsuranceComponent implements OnInit {
   objectFormGroup: FormGroup;
   carFormGroup: FormGroup;
   preBillFormGroup: FormGroup;
+  licaFormGroup:FormGroup;
   elementData: GroupItemPrice[];
 
   constructor(private _formBuilder: FormBuilder, private dataService: DataService) { }
@@ -71,6 +72,10 @@ export class TravelInsuranceComponent implements OnInit {
 
     this.preBillFormGroup = this._formBuilder.group({
       preBillCtrl: ['', Validators.required]
+    });
+
+    this.licaFormGroup = this._formBuilder.group({
+     LicaCtrl: ['', Validators.required]
     });
 
 

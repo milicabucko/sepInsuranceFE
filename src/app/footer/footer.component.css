@@ -1,0 +1,33 @@
+.footer{
+    background-color: #C5281C;
+}
+
+h3{
+    color: white;
+    text-align: center;
+}
+
+.a{
+    text-align: center;
+    color: white;
+    font-size: 15px;
+
+}
+
+.footer{
+    border-top-style: groove;
+    border-top-width: 3px;
+    margin-top:100px;
+    text-align: center;
+    text-align-last: center;
+    
+}
+
+/* .footer-bs {
+    background-color: #C5281C;
+    padding-top: 60px 40px;
+    color: rgba(255,255,255,1.00);
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 6px;
+  } */

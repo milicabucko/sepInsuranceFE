@@ -1,0 +1,41 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+.firstToolbarRow{
+    background-color: #C5281C;
+  }
+
+.secondToolbarRow{
+    background-color: white;
+    line-height: 0.2;
+}
+
+.firstRowText{
+    color: white;
+  }
+
+
+h1{
+    color: #C5281C;
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+h3{
+    color: gray;
+    font-weight: bold;
+  }
+
+.meniButton{
+    font-weight: bold;
+    color: black;
+}
+
+.meniButton:hover{
+    font-weight: bold;
+    background-color:#C5281C;
+    color: white;
+}
