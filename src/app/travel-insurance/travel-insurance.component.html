@@ -28,12 +28,6 @@
       </mat-form-field>
 
       <br>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Broj odraslih" formControlName="numberCtrl" required>
-      </mat-form-field>
-      <br>
-
-      
 
 
       <mat-form-field>
@@ -66,6 +60,39 @@
 
       <br>
 
+      <mat-form-field>
+          <mat-select placeholder="Vrsta osiguravajuceg paketa" [(ngModel)]="selectedPaketValue"  (change)="izabranPaket(paket)" formControlName="travelPaketCtrl" required>
+            <mat-option *ngFor="let paket of paketi" [value]="paket">
+              {{ paket.viewValue }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <br>
+      <div *ngIf="aktivanPorodicni == true">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Broj dece(0-18)" formControlName="numberCtrl" required>
+      </mat-form-field>
+    </div>
+      <br> 
+      <mat-form-field>
+        <input matInput type="number" placeholder="Broj odraslih(18-65)" formControlName="numberCtrl" required>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Broj starijih lica(65+)" formControlName="numberCtrl" required>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Uzrast lica koje putuje" formControlName="numberCtrl" required>
+      </mat-form-field>
+
+      <br>
+      <mat-checkbox>Osiguranje imovine (dodatak)</mat-checkbox>
+      <br>
+      <mat-checkbox>Osiguranje na putu (dodatak)</mat-checkbox>
 
       <div>
         <button mat-button matStepperNext>Dalje</button>
@@ -133,7 +160,42 @@
         <br>
   
         LICAAAAAAAAAAAA
-  
+
+        Tabela
+
+    <button mat-button matStepperNext>Dodaj lice</button>   
+    <br>
+
+    Ovo moze biti dijalog <br>
+    <mat-form-field>
+        <input matInput placeholder="Ime" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+    <mat-form-field>
+        <input matInput placeholder="Prezime" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+Potrebno je da proveri poslednje 4 cifre jmbg-a
+    <mat-form-field>
+        <input matInput placeholder="JMBG" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+    <mat-form-field>
+        <input matInput placeholder="Ulica" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+    <mat-form-field>
+        <input type="number" matInput placeholder="Broj" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+   <mat-form-field>
+        <input matInput placeholder="Mesto" formControlName="licaCtrl" required>
+   </mat-form-field>
+<br>
+    <mat-form-field>
+        <input matInput placeholder="Telefon" formControlName="licaCtrl" required>
+   </mat-form-field>
+   
         <div>
             <button mat-button matStepperPrevious>Nazad</button>
           <button mat-button matStepperNext>Dalje</button>

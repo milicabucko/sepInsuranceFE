@@ -23,6 +23,8 @@ export class TravelInsuranceComponent implements OnInit {
   licaFormGroup:FormGroup;
   elementData: GroupItemPrice[];
 
+  aktivanPorodicni = false;
+
   constructor(private _formBuilder: FormBuilder, private dataService: DataService) { }
 
   regions: ContractItem[];
@@ -53,7 +55,9 @@ export class TravelInsuranceComponent implements OnInit {
       travelRegionCtrl: ['', Validators.required],
       agesCtrl: ['', Validators.required],
       numberCtrl: ['', Validators.required],
-      sportCtrl: ['', Validators.required]
+      sportCtrl: ['', Validators.required],
+      travelPaketCtrl: ['',Validators.required],
+      licaCtrl: ['',Validators.required]
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -75,8 +79,10 @@ export class TravelInsuranceComponent implements OnInit {
     });
 
     this.licaFormGroup = this._formBuilder.group({
-     LicaCtrl: ['', Validators.required]
+      licaCtrl: ['', Validators.required]
     });
+
+
 
 
     this.dataService.findAllContractItems('region').then(regions => this.regions = regions);
@@ -91,6 +97,16 @@ export class TravelInsuranceComponent implements OnInit {
     this.dataService.findAllContractItems('package').then(packages => this.packages = packages);
   }
 
+
+izabranPaket(paket){
+  if(paket.value === "porodicno"){
+    this.aktivanPorodicni = true;
+  }
+  else{
+    this.aktivanPorodicni = false;
+  }
+}
+
 chooseValue(selectedValue){
 
   ELEMENT_DATA[0].name = this.selectedRegionValue.name;
@@ -102,6 +118,13 @@ chooseValue(selectedValue){
   ELEMENT_DATA[3].name = this.selectedInsuranceAmountValue.name;
   ELEMENT_DATA[3].category = this.selectedInsuranceAmountValue.itemGroup;
   }
+
+
+  paketi = [
+    {value: 'individualno', viewValue: 'Individualno'},
+    {value: 'porodicno', viewValue: 'Porodicno'}
+  ];
+
 }
 
 const ELEMENT_DATA: GroupItemPrice[] = [
@@ -126,6 +149,5 @@ export interface GroupItemPrice {
   name: String;
   price: number;
 }
-
 
 
