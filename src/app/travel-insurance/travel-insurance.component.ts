@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../data.service';
 import {ContractItem} from './ContractItem';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { AddPersonDialogComponent } from '../add-person-dialog/add-person-dialog.component';
 
 @Component({
   selector: 'app-travel-insurance',
@@ -25,7 +26,7 @@ export class TravelInsuranceComponent implements OnInit {
 
   aktivanPorodicni = false;
 
-  constructor(private _formBuilder: FormBuilder, private dataService: DataService) { }
+  constructor(private _formBuilder: FormBuilder, private dataService: DataService, public dialog: MatDialog) { }
 
   regions: ContractItem[];
   sports: ContractItem[];
@@ -46,6 +47,7 @@ export class TravelInsuranceComponent implements OnInit {
 
   insPerson: InsuredPerson;
   groupItemPrice: GroupItemPrice;
+
 
   ngOnInit() {
 
@@ -97,6 +99,17 @@ export class TravelInsuranceComponent implements OnInit {
     this.dataService.findAllContractItems('package').then(packages => this.packages = packages);
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(AddPersonDialogComponent, {
+      height: '350px',
+      data: { text: 'text'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  } 
+
 
 izabranPaket(paket){
   if(paket.value === "porodicno"){
@@ -117,7 +130,7 @@ chooseValue(selectedValue){
   ELEMENT_DATA[2].category = this.selectedSportValue.itemGroup;
   ELEMENT_DATA[3].name = this.selectedInsuranceAmountValue.name;
   ELEMENT_DATA[3].category = this.selectedInsuranceAmountValue.itemGroup;
-  }
+}
 
 
   paketi = [
@@ -149,5 +162,4 @@ export interface GroupItemPrice {
   name: String;
   price: number;
 }
-
 

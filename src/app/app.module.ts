@@ -54,6 +54,7 @@ import { ImagesSliderComponent } from './images-slider/images-slider.component';
 import { FooterComponent } from './footer/footer.component';
 import { EmptySpaceComponent } from './empty-space/empty-space.component';
 import { PanelComponent } from './panel/panel.component';
+import { AddPersonDialogComponent } from './add-person-dialog/add-person-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -81,6 +82,7 @@ const appRoutes: Routes = [
     FooterComponent,
     EmptySpaceComponent,
     PanelComponent,
+    AddPersonDialogComponent,
     
   ],
   imports: [
