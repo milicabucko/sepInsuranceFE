@@ -6,13 +6,13 @@
       Trajanje osiguranja <br>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="startPicker" placeholder="Pocetak vazenja osiguranja"  formControlName="startPickerCtrl" required>
+        <input matInput [matDatepicker]="startPicker" placeholder="Pocetak vazenja osiguranja"  formControlName="pocetakVazenjaOsiguranja" [min]="todaysDate"  required (dateInput)="validirajDatumIstekaOsiguranja()">
         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
+        <mat-datepicker #startPicker ></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="endPicker" placeholder="Kraj vazenja osiguranja" formControlName="endPickerCtrl" required>
+        <input matInput [matDatepicker]="endPicker" placeholder="Kraj vazenja osiguranja" formControlName="krajVazenjaOsiguranja" [min]="datumIstekaOsiguranja" required>
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
@@ -20,9 +20,9 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Destinacija" [(ngModel)]="selectedRegionValue" (change)="chooseValue(selectedRegionValue)"  formControlName="travelRegionCtrl" required>
-          <mat-option *ngFor="let region of regions" [value]="region">
-            {{ region.name }}
+        <mat-select placeholder="Destinacija" [(ngModel)]="selectedRegionValue" (change)="chooseValue(selectedRegionValue)"  formControlName="region" required>
+          <mat-option *ngFor="let region of regioni" [value]="region">
+            {{ region.naziv }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -31,9 +31,9 @@
 
 
       <mat-form-field>
-        <mat-select placeholder="Uzrast lica koje putuje" [(ngModel)]="selectedAgeGroupValue" (change)="chooseValue(selectedAgeGroupValue)" formControlName="agesCtrl" required>
-          <mat-option *ngFor="let ageGroup of ageGroups" [value]="ageGroup">
-            {{ ageGroup.name }}
+        <mat-select placeholder="Starosne grupe osoba koje putuju" [(ngModel)]="selectedAgeGroupValue" (change)="chooseValue(selectedAgeGroupValue)" formControlName="starosnaGrupa" required>
+          <mat-option *ngFor="let starosnaGrupa of starosneGrupe" [value]="starosnaGrupa">
+            {{ starosnaGrupa.naziv }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -41,9 +41,15 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Svrha putovanja" [(ngModel)]="selectedSportValue" (change)="chooseValue(selectedSportValue)" formControlName="sportCtrl" required>
-          <mat-option *ngFor="let sport of sports" [value]="sport">
-            {{ sport.name }}
+        <input matInput type="number" placeholder="Broj osiguranih osoba" formControlName="brojOsiguranihOsoba" value="1" min="1" required>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+        <mat-select placeholder="Kojim sportovima ces se baviti" [(ngModel)]="selectedSportValue" (change)="chooseValue(selectedSportValue)" formControlName="sportovi" required multiple>
+          <mat-option *ngFor="let sport of sportovi" [value]="sport">
+            {{ sport.naziv }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -51,43 +57,13 @@
       <br>
 
       <mat-form-field>
-        <mat-select placeholder="Osigurana suma" [(ngModel)]="selectedInsuranceAmountValue" (change)="chooseValue(selectedInsuranceAmountValue)" formControlName="sportCtrl" required>
-          <mat-option *ngFor="let insuranceAmount of insuranceAmounts" [value]="insuranceAmount">
-            {{ insuranceAmount.name }}
+        <mat-select placeholder="Do kog iznosa zelite da budete osigurani" [(ngModel)]="selectedInsuranceAmountValue" (change)="chooseValue(selectedInsuranceAmountValue)" formControlName="iznosOsiguranja" required>
+          <mat-option *ngFor="let iznosOsiguranja of iznosiOsiguranja" [value]="iznosOsiguranja">
+            {{ iznosOsiguranja.naziv }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <br>
-
-      <mat-form-field>
-          <mat-select placeholder="Vrsta osiguravajuceg paketa" [(ngModel)]="selectedPaketValue"  (change)="izabranPaket(paket)" formControlName="travelPaketCtrl" required>
-            <mat-option *ngFor="let paket of paketi" [value]="paket">
-              {{ paket.viewValue }}
-            </mat-option>
-          </mat-select>
-      </mat-form-field>
-
-      <br>
-      <div *ngIf="aktivanPorodicni == true">
-      <mat-form-field>
-        <input matInput type="number" placeholder="Broj dece(0-18)" formControlName="numberCtrl" required>
-      </mat-form-field>
-    </div>
-      <br> 
-      <mat-form-field>
-        <input matInput type="number" placeholder="Broj odraslih(18-65)" formControlName="numberCtrl" required>
-      </mat-form-field>
-
-      <br>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Broj starijih lica(65+)" formControlName="numberCtrl" required>
-      </mat-form-field>
-
-      <br>
-      <mat-form-field>
-        <input matInput type="number" placeholder="Uzrast lica koje putuje" formControlName="numberCtrl" required>
-      </mat-form-field>
 
       <br>
       <mat-checkbox>Osiguranje imovine (dodatak)</mat-checkbox>
@@ -138,9 +114,6 @@
       <!-- Copyright 2018 Google Inc. All Rights Reserved.
           Use of this source code is governed by an MIT-style license that
           can be found in the LICENSE file at http://angular.io/license -->
-      <mat-form-field>
-        <input matInput type="number" placeholder="Number of persons" formControlName="preBillCtrl" required>
-      </mat-form-field>
       <br>
       <br>
 

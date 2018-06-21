@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map'
 import {ContractItem} from './travel-insurance/ContractItem';
 
 @Injectable()
@@ -12,6 +13,10 @@ export class DataService {
 
 
   constructor(private http: Http) { }
+
+  nadjiAktivanCenovnik(){
+    return this.http.get('http://localhost:9000/cenovnik/aktivan').map(res=>res.json())
+  }
 
   findAllContractItems(itemName: String): Promise<ContractItem[]> {
     const url = 'contract/items/findAll/' + itemName;

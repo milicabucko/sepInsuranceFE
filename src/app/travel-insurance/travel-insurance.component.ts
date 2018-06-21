@@ -5,6 +5,7 @@ import {ContractItem} from './ContractItem';
 import {MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { AddPersonDialogComponent } from '../add-person-dialog/add-person-dialog.component';
+import { StavkaCenovnika } from './StavkaCenovnika';
 
 @Component({
   selector: 'app-travel-insurance',
@@ -28,10 +29,10 @@ export class TravelInsuranceComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private dataService: DataService, public dialog: MatDialog) { }
 
-  regions: ContractItem[];
-  sports: ContractItem[];
-  ageGroups: ContractItem[];
-  insuranceAmounts: ContractItem[];
+  regioni: StavkaCenovnika[];
+  sportovi: StavkaCenovnika[];
+  starosneGrupe: StavkaCenovnika[];
+  iznosiOsiguranja: StavkaCenovnika[];
   objectAges: ContractItem[];
   areas: ContractItem[];
   insurances: ContractItem[];
@@ -47,19 +48,23 @@ export class TravelInsuranceComponent implements OnInit {
 
   insPerson: InsuredPerson;
   groupItemPrice: GroupItemPrice;
+  stavkeAktivnogCenovnika: StavkaCenovnika[];
 
+  todaysDate: any;
+  datumIstekaOsiguranja: any;
 
   ngOnInit() {
 
+    this.todaysDate = new Date();
+
     this.firstFormGroup = this._formBuilder.group({
-      startPickerCtrl: ['', Validators.required],
-      endPickerCtrl : ['', Validators.required],
-      travelRegionCtrl: ['', Validators.required],
-      agesCtrl: ['', Validators.required],
-      numberCtrl: ['', Validators.required],
-      sportCtrl: ['', Validators.required],
-      travelPaketCtrl: ['',Validators.required],
-      licaCtrl: ['',Validators.required]
+      pocetakVazenjaOsiguranja: ['', Validators.required],
+      krajVazenjaOsiguranja : ['', Validators.required],
+      region: ['', Validators.required],
+      starosnaGrupa: ['', Validators.required],
+      brojOsiguranihOsoba: ['', [Validators.required, Validators.min(1)]],
+      sportovi: ['', Validators.required],
+      iznosOsiguranja: ['',Validators.required]
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -85,18 +90,14 @@ export class TravelInsuranceComponent implements OnInit {
     });
 
 
+    this.dataService.nadjiAktivanCenovnik().subscribe(cenovnik => {
+      this.stavkeAktivnogCenovnika = cenovnik.stavkeCenovnika;
+      this.regioni = this.stavkeAktivnogCenovnika.filter((stavka: StavkaCenovnika) => stavka.kategorija === 'region');
+      this.sportovi = this.stavkeAktivnogCenovnika.filter((stavka: StavkaCenovnika) => stavka.kategorija === 'sport');
+      this.starosneGrupe = this.stavkeAktivnogCenovnika.filter((stavka: StavkaCenovnika) => stavka.kategorija === 'starosnaGrupa');
+      this.iznosiOsiguranja = this.stavkeAktivnogCenovnika.filter((stavka: StavkaCenovnika) => stavka.kategorija === 'iznosOsiguranja');
+    });
 
-
-    this.dataService.findAllContractItems('region').then(regions => this.regions = regions);
-    this.dataService.findAllContractItems('sport').then(sports => this.sports = sports);
-    this.dataService.findAllContractItems('ageGroup').then(ageGroups => this.ageGroups = ageGroups);
-    this.dataService.findAllContractItems('insuranceAmount').then(insuranceAmounts => this.insuranceAmounts = insuranceAmounts);
-    this.dataService.findAllContractItems('objectAge').then(objectAges => this.objectAges = objectAges);
-    this.dataService.findAllContractItems('insuranceAmount').then(insuranceAmounts => this.insuranceAmounts = insuranceAmounts);
-    this.dataService.findAllContractItems('area').then(areas => this.areas = areas);
-    this.dataService.findAllContractItems('objectAge').then(objectAges => this.objectAges = objectAges);
-    this.dataService.findAllContractItems('insurance').then(insurances => this.insurances = insurances);
-    this.dataService.findAllContractItems('package').then(packages => this.packages = packages);
   }
 
   openDialog() {
@@ -108,7 +109,12 @@ export class TravelInsuranceComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-  } 
+  }
+
+  validirajDatumIstekaOsiguranja() {
+    console.log("ae");
+    this.datumIstekaOsiguranja = this.firstFormGroup.value.pocetakVazenjaOsiguranja;
+  }
 
 
 izabranPaket(paket){
