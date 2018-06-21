@@ -132,7 +132,8 @@ const appRoutes: Routes = [
     MatSliderModule
   ],
   providers: [DataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddPersonDialogComponent]
 })
 export class AppModule { }
 
